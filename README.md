@@ -1,8 +1,58 @@
-# React + Vite
+# Drone controll from browser
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Стек технологій
+- react + vite
+- node
+- ws
 
-Currently, two official plugins are available:
+## Опис
+Програма реалізовує отримання і конвертацію управління з клавіатури та геймпаду, у зрозумілий для дрона формат, і подальшою відправкою цих данних на сервер через websocket
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Реалізоване управління для наземного дрона, повороти в якому здійснюються як в такнку, тобто завдяки різніці швидкостей обертання правої та лівої осей
+Тому йде передача 2х значень, для правої та лівоїї осі. Значення можуть бути у діапазоні від -1000 до + 1000, коли 0 - відсутність обертання, -1000 повний назад, +1000 повний вперед
+
+На сторінці зображена візуалізація поточного стану занчень, та вибір системи управління, клавіатурою чи геймпадом
+![image](https://github.com/user-attachments/assets/85ee074c-2765-47c5-aaef-8de45354abfa)
+
+## Клавіатура
+
+При управлінні клавіатурою використовуються клавіші wasd і в відвовідності до їх нажаття виставляється значення у кожен канал
+
+Рух в перед з поворотом ліворуч
+![image](https://github.com/user-attachments/assets/eaf29216-e109-40e4-938d-3c31c303f50d)
+
+Рух назад з поворотом праворуч
+![image](https://github.com/user-attachments/assets/7630233d-a94a-4113-9ae5-2f2bbb0547ce)
+
+# Геймпад
+
+При управлінні геймпадом значення беруться з L2 та R2 тригерів (вперед і назад)
+А також горизонтального значення лівого стіка, для повороту
+
+Рух вперед з поворотом ліворуч
+
+![image](https://github.com/user-attachments/assets/80265a07-ee28-4407-b01f-f4e7f8d6cbef)
+
+
+Рух назад з поворотом праворуч
+
+![image](https://github.com/user-attachments/assets/239bbd62-7d7f-4aac-bfd7-6052d38c80de)
+
+## Сервер
+
+Також отримані команди управління відправляються на сервер, який відображає отримані значення в консолі
+
+![image](https://github.com/user-attachments/assets/ca92006b-a1c2-485a-9ad7-ff7fcba1af3b)
+
+
+## Development
+
+```sh
+git clone https://github.com/junkjuk/gamepad.git
+cd gamepad
+npm install
+npm run dev
+npm run server
+```
+
+Відкрити сторінку можна за посиланням http://localhost:5174/
