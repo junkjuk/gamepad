@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import {useMemo, useState} from 'react'
 import './App.css'
 import {Slider} from "./components/Slider.jsx";
 import {StartReadKeyboard, StopReadKeyboard} from "./controls/keyboard/keyboardReader.js";
@@ -9,6 +9,7 @@ import {convertKeyboard} from "./controls/keyboard/keyBoardConvertor.js";
 function App() {
   const [left, setLeft] = useState(0)
   const [right, setRight] = useState(0)
+  const ws = useMemo(() => new WebSocket("ws://localhost:8080"), [])
 
   const onKeyboardUpdated = (command, isPressed) => {
     let r, l;
@@ -16,6 +17,7 @@ function App() {
     [r, l] = channels.channels;
     setLeft(l);
     setRight(r);
+    ws.send(channels.channels);
   }
 
 
@@ -25,7 +27,7 @@ function App() {
     [r, l] = channels.channels;
     setLeft(Math.floor(l));
     setRight(Math.floor(r));
-    console.log(channels.channels)
+    ws.send(channels.channels);
   }
 
   return (
